@@ -1,30 +1,211 @@
+/* ==========================================================================
+   CSE 340 Service Network — main.css
+   Palette: deep forest green + warm gold, on a soft sage-white ground.
+   Type: Lora (headings) + Karla (body/nav).
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&family=Karla:wght@400;500;700&display=swap');
+
+:root {
+  /* Color */
+  --color-bg: #F3F5F0;
+  --color-surface: #FFFFFF;
+  --color-ink: #1C2620;
+  --color-ink-muted: #4B5750;
+  --color-primary: #2F4A3D;
+  --color-primary-dark: #1F3229;
+  --color-accent: #B8863C;
+  --color-accent-dark: #8F692C;
+  --color-border: #DCE1D8;
+
+  /* Type */
+  --font-heading: 'Lora', Georgia, serif;
+  --font-body: 'Karla', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Layout */
+  --content-width: 720px;
+  --radius: 4px;
+}
+
+/* ---- Reset & base ---- */
+* { box-sizing: border-box; }
+
 html, body {
-    background-color: lightblue;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    nav {
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
 
-        li {
-            display: inline;
-            margin-right: 15px;
-        }
+img { max-width: 100%; display: block; }
 
-        a {
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
+a {
+  color: var(--color-accent-dark);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.15s ease, color 0.15s ease;
+}
 
-            &:hover {
-                color: #0066cc;
-            }
-        }
-    }
-}    
+a:hover { text-decoration-color: currentColor; }
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ---- Navigation ---- */
+nav {
+  background-color: var(--color-primary);
+  padding: 0 1.5rem;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: var(--content-width);
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.75rem;
+}
+
+nav li { margin: 0; }
+
+nav a {
+  display: inline-block;
+  padding: 1.1rem 0;
+  color: #EFE9DA;
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+}
+
+nav a:hover,
+nav a:focus-visible {
+  color: #FFFFFF;
+  border-bottom-color: var(--color-accent);
+  outline: none;
+}
+
+/* ---- Main content ---- */
+main {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 3rem 1.5rem 4rem;
+}
+
+h1 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  line-height: 1.15;
+  color: var(--color-primary-dark);
+  margin: 0 0 0.5rem;
+}
+
+h2 {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.25rem;
+  color: var(--color-ink-muted);
+  margin: 0 0 2rem;
+}
+
+main p {
+  max-width: 62ch;
+  margin: 0 0 1.25rem;
+}
+
+main ul {
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
+}
+
+main ul li {
+  position: relative;
+  padding: 0.85rem 0 0.85rem 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+main ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 1.45rem;
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-accent);
+  border-radius: 50%;
+}
+
+main ul li img {
+  display: inline-block;
+  width: 2.25rem;
+  height: 2.25rem;
+  object-fit: contain;
+  vertical-align: middle;
+  margin-right: 0.75rem;
+  border-radius: var(--radius);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  padding: 3px;
+}
+
+main ul li strong {
+  color: var(--color-primary-dark);
+}
+
+.main-logo {
+  width: 100%;
+  max-width: 420px;
+  margin: 1.5rem 0 2rem;
+  border-radius: var(--radius);
+}
+
+/* ---- Footer ---- */
+footer {
+  border-top: 1px solid var(--color-border);
+  padding: 1.75rem 1.5rem;
+  text-align: center;
+}
+
+footer p {
+  margin: 0;
+  color: var(--color-ink-muted);
+  font-size: 0.85rem;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 600px) {
+  body { font-size: 16px; }
+
+  nav ul { gap: 0 1.25rem; }
+
+  nav a { padding: 0.9rem 0; font-size: 0.9rem; }
+
+  main { padding: 2rem 1.25rem 3rem; }
+
+  main ul li img {
+    display: block;
+    margin: 0 0 0.5rem;
+  }
+}
+
+/* ---- Reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
