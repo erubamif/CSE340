@@ -14,3 +14,14 @@ CREATE TABLE project (
     location VARCHAR(255) NOT NULL,
     project_date DATE NOT NULL
 );
+
+CREATE TABLE category (
+    category_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE project_category (
+    project_id INTEGER NOT NULL REFERENCES project(project_id),
+    category_id INTEGER NOT NULL REFERENCES category(category_id),
+    PRIMARY KEY (project_id, category_id)
+);
