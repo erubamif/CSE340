@@ -1,6 +1,8 @@
-import db from './db.js'
+import db from './db.js';
 
-const getAllCategories = async() => {
+
+// Get all categories
+const getAllCategories = async () => {
     const query = `
         SELECT category_id, name
         FROM public.category
@@ -10,6 +12,74 @@ const getAllCategories = async() => {
     const result = await db.query(query);
 
     return result.rows;
-}
+};
 
-export { getAllCategories }
+
+// Get details for one category
+const getCategoryDetails = async (id) => {
+    const query = `
+        SELECT category_id, name
+        FROM public.category
+        WHERE category_id = $1;
+    `;
+
+    const queryParams = [id];
+    const result = await db.query(query, queryParams);
+
+    return result.rows.length > 0 ? result.rows[0] : null;
+};
+
+
+// Get all categories for a given project
+const getCategoriesByProjectId = async (projectId) => {
+    const query = `
+        SELECT
+            c.category_id,
+            c.name
+        FROM public.category c
+        JOIN public.project_category pc
+            ON c.category_id = pc.category_id
+        WHERE pc.project_id = $1
+        ORDER BY c.name;
+    `;
+
+    const queryParams = [projectId];
+    const result = await db.query(query, queryParams);
+
+    return result.rows;
+};
+
+
+// Get all projects for a given category
+const getProjectsByCategoryId = async (categoryId) => {
+    const query = `
+        SELECT
+            p.project_id,
+            p.title,
+            p.description,
+            p.location,
+            p.project_date,
+            p.organization_id,
+            o.name AS organization_name
+        FROM public.project p
+        JOIN public.project_category pc
+            ON p.project_id = pc.project_id
+        JOIN public.organization o
+            ON p.organization_id = o.organization_id
+        WHERE pc.category_id = $1
+        ORDER BY p.project_date;
+    `;
+
+    const queryParams = [categoryId];
+    const result = await db.query(query, queryParams);
+
+    return result.rows;
+};
+
+
+export {
+    getAllCategories,
+    getCategoryDetails,
+    getCategoriesByProjectId,
+    getProjectsByCategoryId
+};
