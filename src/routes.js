@@ -17,7 +17,9 @@ import {
     showProjectDetailsPage,
     showNewProjectForm,
     processNewProjectForm,
-    projectValidation
+    projectValidation,
+    showEditProjectForm,
+processEditProjectForm
 } from './controllers/projects.js';
 
 
@@ -77,4 +79,9 @@ router.post('/new-project', projectValidation, processNewProjectForm);
 router.get('/assign-categories/:projectId', showAssignCategoriesForm);
 router.post('/assign-categories/:projectId', processAssignCategoriesForm);
 
+router.get('/edit-project/:id', showEditProjectForm);
+
+router.post('/edit-project/:id', processEditProjectForm);
+
 export default router;
+
