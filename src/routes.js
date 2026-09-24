@@ -6,7 +6,8 @@ import {
     showOrganizationsPage,
     showOrganizationDetailsPage,
     showNewOrganizationForm,
-    processNewOrganizationForm
+    processNewOrganizationForm,
+    organizationValidation
 } from './controllers/organizations.js';
 
 import {
