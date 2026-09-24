@@ -103,19 +103,6 @@ const processEditOrganizationForm = async (req, res) => {
     res.redirect(`/organization/${organizationId}`);
 };
 
-// Check for validation errors
-const results = validationResult(req);
-if (!results.isEmpty()) {
-    // Validation failed - loop through errors
-    results.array().forEach((error) => {
-        req.flash('error', error.msg);
-    });
-
-    // Redirect back to the edit organization form
-    return res.redirect('/edit-organization/' + req.params.id);
-}
-
-
 export {
     showOrganizationsPage,
     showOrganizationDetailsPage,

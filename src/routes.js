@@ -8,18 +8,27 @@ import {
     showNewOrganizationForm,
     processNewOrganizationForm,
     organizationValidation,
-    showEditOrganizationForm
+    showEditOrganizationForm,
+    processEditOrganizationForm
 } from './controllers/organizations.js';
 
 import {
     showProjectsPage,
-    showProjectDetailsPage
+    showProjectDetailsPage,
+    showNewProjectForm,
+    processNewProjectForm,
+    projectValidation
 } from './controllers/projects.js';
+
 
 import {
     showCategoriesPage,
-    showCategoryDetailsPage
+    showCategoryDetailsPage,
+    showAssignCategoriesForm,
+    processAssignCategoriesForm
 } from './controllers/categories.js';
+
+
 
 import { testErrorPage } from './controllers/errors.js';
 
@@ -58,5 +67,14 @@ router.get('/edit-organization/:id', showEditOrganizationForm);
 // Route to handle the edit organization form submission
 router.post('/edit-organization/:id', organizationValidation, processEditOrganizationForm);
 
+// Route for new project page
+router.get('/new-project', showNewProjectForm);
+
+// Route to handle new project form submission
+router.post('/new-project', projectValidation, processNewProjectForm);
+
+// Routes to handle the assign categories to project form
+router.get('/assign-categories/:projectId', showAssignCategoriesForm);
+router.post('/assign-categories/:projectId', processAssignCategoriesForm);
 
 export default router;
