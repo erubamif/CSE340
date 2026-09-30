@@ -1,0 +1,31 @@
+<%- include('partials/header') %>
+
+<main>
+
+```
+<h1><%= title %></h1>
+
+<h2>Registered Users</h2>
+
+<ul>
+
+    <% users.forEach(user => { %>
+
+        <li>
+            <strong><%= user.name %></strong>
+            - <%= user.email %>
+            - Role: <%= user.role_name %>
+        </li>
+
+    <% }); %>
+
+</ul>
+
+<p>
+    <a href="/dashboard">Back to Dashboard</a>
+</p>
+```
+
+</main>
+
+<%- include('partials/footer') %>

@@ -45,9 +45,17 @@ app.use((req, res, next) => {
     next();
 });
 
-// Make NODE_ENV available to templates
+// Make variables available to all templates
 app.use((req, res, next) => {
+    res.locals.isLoggedIn = false;
+
+    if (req.session && req.session.user) {
+        res.locals.isLoggedIn = true;
+    }
+
+    res.locals.user = req.session.user || null;
     res.locals.NODE_ENV = NODE_ENV;
+
     next();
 });
 
@@ -83,13 +91,23 @@ app.use((err, req, res, next) => {
 });
 
 // Start server
-app.listen(PORT, async () => {
-    try {
-        await testConnection();
+const server = app.listen(PORT, () => {
+    console.log(`Server is running at http://127.0.0.1:${PORT}`);
+    console.log(`Environment: ${NODE_ENV}`);
 
-        console.log(`Server is running at http://127.0.0.1:${PORT}`);
-        console.log(`Environment: ${NODE_ENV}`);
-    } catch (error) {
-        console.error('Error connecting to the database:', error);
-    }
+    testConnection()
+        .then(() => {
+            console.log('Database connection test completed.');
+        })
+        .catch((error) => {
+            console.error('Error connecting to the database:', error);
+        });
+});
+
+server.on('close', () => {
+    console.log('SERVER CLOSED');
+});
+
+server.on('error', (error) => {
+    console.error('SERVER ERROR:', error);
 });

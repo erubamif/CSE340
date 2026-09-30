@@ -2,23 +2,33 @@
 
 <main>
 
-    <h1><%= title %></h1>
+```
+<h1><%= title %></h1>
 
-    <h2>Service Project Categories</h2>
+<h2>Service Project Categories</h2>
 
-    <ul>
+<% if (user && user.role_name === 'admin') { %>
+    <p>
+        <a href="/new-category">Add New Category</a>
+    </p>
+<% } %>
 
-        <% categories.forEach(category => { %>
+<ul>
 
-            <li>
-                <a href="/category/<%= category.category_id %>">
-                    <%= category.name %>
-                </a>
-            </li>
+    <% categories.forEach(category => { %>
 
-        <% }); %>
+        <li>
 
-    </ul>
+            <a href="/category/<%= category.category_id %>">
+                <%= category.name %>
+            </a>
+
+        </li>
+
+    <% }); %>
+
+</ul>
+```
 
 </main>
 
